@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MemoryEater": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
