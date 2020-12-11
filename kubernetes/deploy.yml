@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: 1
   minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: memoryeater
   strategy:
     type: RollingUpdate
     rollingUpdate:

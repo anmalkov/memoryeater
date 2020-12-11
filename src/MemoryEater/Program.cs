@@ -21,7 +21,7 @@ namespace MemoryEater
                     Console.WriteLine($"Allocated {i} MB");
                 }
                 i++;
-                Thread.Sleep(75);
+                Thread.Sleep(TimeSpan.FromSeconds(5));
             }
         }
     }
