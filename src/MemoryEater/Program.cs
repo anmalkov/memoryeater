@@ -19,11 +19,8 @@ namespace MemoryEater
             while (true)
             {
                 _buffer = new byte[i * 1024 * 1024];
-                if (i % 10 == 0)
-                {
-                    Console.WriteLine($"Allocated {i} MB");
-                    Trace.WriteLine($"Allocated {i} MB");
-                }
+                Console.WriteLine($"Allocated {i} MB");
+                Trace.WriteLine($"Allocated {i} MB");
                 i++;
                 Thread.Sleep(TimeSpan.FromSeconds(5));
             }
