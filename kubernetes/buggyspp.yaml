@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buggy-app
+spec:
+  replicas: 1
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: buggy-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        name: buggy-app
+        demo: logging
+        app: buggy-app
+    spec:
+      containers:
+      - name: buggy-app
+        image: denniszielke/buggy-app:latest
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 20
+          timeoutSeconds: 5
+        ports:
+          - containerPort: 80
+            name: http
+            protocol: TCP
+        imagePullPolicy: Always   
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "500m"
+          limits:
+            memory: "256Mi"
+            cpu: "1000m"    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: buggy-app
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: buggy-app
+  type: LoadBalancer
